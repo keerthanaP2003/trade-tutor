@@ -1,10 +1,10 @@
 {
-  "projectId": "compact-land-c71nt",
-  "appId": "1:193670149814:web:e81b7948a9dc8492c71817",
-  "apiKey": "AIzaSyAP2BZNg8O_6kzUgq5aSyZe9_uUDv54z3M",
-  "authDomain": "compact-land-c71nt.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-30bf5720-bf37-4a2c-b6e5-e840feead274",
-  "storageBucket": "compact-land-c71nt.firebasestorage.app",
-  "messagingSenderId": "193670149814",
-  "measurementId": ""
+  "projectId": "trade-tutor-306eb",
+  "appId": "1:206890551170:web:38b0364134ea1cfbb9b19b",
+  "apiKey": "AIzaSyAdyBZnW4Q45GDhABNcb8DYN9xH6633-NA",
+  "authDomain": "trade-tutor-306eb.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "trade-tutor-306eb.firebasestorage.app",
+  "messagingSenderId": "206890551170",
+  "measurementId": "G-DZYSFLJVV6"
 }
