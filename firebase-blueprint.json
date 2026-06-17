@@ -1,0 +1,247 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile statistics and credentials.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" },
+        "avatar": { "type": "string" },
+        "skills": { "type": "array" },
+        "bio": { "type": "string" },
+        "major": { "type": "string" },
+        "university": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "walletBalance": { "type": "number" },
+        "earnings": { "type": "number" },
+        "githubUrl": { "type": "string" },
+        "portfolioUrl": { "type": "string" },
+        "joinedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role", "walletBalance", "earnings"]
+    },
+    "ProductListing": {
+      "title": "ProductListing",
+      "description": "Peer-to-peer textbook and device listings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "condition": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "sellerAvatar": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "price", "sellerId", "status"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Student homework tasks with peer bidding systems.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "subject": { "type": "string" },
+        "budget": { "type": "number" },
+        "deadline": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "status": { "type": "string" },
+        "proposals": { "type": "array" }
+      },
+      "required": ["id", "title", "budget", "userId", "status"]
+    },
+    "TeamCollab": {
+      "title": "TeamCollab",
+      "description": "Capstone and hackathon project partner listings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "projectDescription": { "type": "string" },
+        "requiredSkills": { "type": "array" },
+        "creatorId": { "type": "string" },
+        "creatorName": { "type": "string" },
+        "creatorAvatar": { "type": "string" },
+        "membersCount": { "type": "number" },
+        "membersLimit": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "creatorId", "status"]
+    },
+    "ChatThread": {
+      "title": "ChatThread",
+      "description": "Conversations between peer users.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "participantId": { "type": "string" },
+        "participantName": { "type": "string" },
+        "participantAvatar": { "type": "string" },
+        "participantRole": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "string" },
+        "unreadCount": { "type": "number" },
+        "memberUids": { "type": "array" }
+      },
+      "required": ["id", "memberUids"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Peer text messages inside chat channels.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderAvatar": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "fileName": { "type": "string" }
+      },
+      "required": ["id", "chatId", "senderId", "text", "createdAt"]
+    },
+    "ForumPost": {
+      "title": "ForumPost",
+      "description": "Open post threads in public college categories.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "content": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorAvatar": { "type": "string" },
+        "authorRole": { "type": "string" },
+        "likes": { "type": "number" },
+        "likedByUsers": { "type": "array" },
+        "replies": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "createdAt"]
+    },
+    "WalletTransaction": {
+      "title": "WalletTransaction",
+      "description": "User deposit and debit records.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "amount", "type", "createdAt"]
+    },
+    "InternshipListing": {
+      "title": "InternshipListing",
+      "description": "Vetted College Internship Pipelines.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string" },
+        "duration": { "type": "string" },
+        "stipend": { "type": "string" },
+        "requirements": { "type": "array" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "company", "type", "createdAt"]
+    },
+    "InternshipInteraction": {
+      "title": "InternshipInteraction",
+      "description": "User specific internship application and bookmark status.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "internshipId": { "type": "string" },
+        "applied": { "type": "boolean" },
+        "saved": { "type": "boolean" },
+        "status": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "internshipId", "applied", "saved"]
+    },
+    "AiChatMessage": {
+      "title": "AiChatMessage",
+      "description": "Log of messages between the user and AI Tutor.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "category": { "type": "string" },
+        "role": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "category", "role", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/profiles/{profileId}": {
+      "schema": "UserProfile",
+      "description": "Global user profiles."
+    },
+    "/profiles/{profileId}/ai_chats/{chatMessageId}": {
+      "schema": "AiChatMessage",
+      "description": "User specific chat logs with the AI Tutor."
+    },
+    "/products/{productId}": {
+      "schema": "ProductListing",
+      "description": "Marketplace products listings."
+    },
+    "/assignments/{assignmentId}": {
+      "schema": "Assignment",
+      "description": "Academic tutoring guidance requests."
+    },
+    "/collabs/{collabId}": {
+      "schema": "TeamCollab",
+      "description": "Partner collaboratives listings."
+    },
+    "/chats/{chatId}": {
+      "schema": "ChatThread",
+      "description": "Core conversation threads."
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages belonging to the conversation thread."
+    },
+    "/forums/{forumPostId}": {
+      "schema": "ForumPost",
+      "description": "Campus community public postings."
+    },
+    "/transactions/{transactionId}": {
+      "schema": "WalletTransaction",
+      "description": "Secure virtual monetary logs."
+    },
+    "/internships/{internshipId}": {
+      "schema": "InternshipListing",
+      "description": "Master list of vetted campus internship pipelines."
+    },
+    "/internship_interactions/{interactionId}": {
+      "schema": "InternshipInteraction",
+      "description": "Student specific application tracking."
+    }
+  }
+}

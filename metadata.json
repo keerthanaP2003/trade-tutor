@@ -1,0 +1,6 @@
+{
+  "name": "Trade Tutor",
+  "description": "Unified university marketplace, peer coursework escrow, capstone collaborator, and on-demand Gemini-powered student advisor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

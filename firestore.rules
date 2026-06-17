@@ -1,0 +1,122 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global secure helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == "dinesh226580@gmail.com";
+    }
+
+    // Admin superuser override for all documents
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Profiles Collection - allow signed in users to read, and owner to create/update
+    match /profiles/{profileId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isOwner(profileId);
+      allow update: if isSignedIn() && isOwner(profileId);
+
+      // Subcollection for AI Tutor Chat history
+      match /ai_chats/{chatMessageId} {
+        allow read, write: if isSignedIn() && isOwner(profileId);
+      }
+    }
+
+    // Products Collection
+    match /products/{productId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (
+        request.resource.data.sellerId == request.auth.uid || 
+        productId == "prod_1" || 
+        productId == "prod_2" || 
+        productId == "prod_3"
+      );
+      allow update: if isSignedIn() && (
+        resource.data.sellerId == request.auth.uid || 
+        request.resource.data.status == "Sold"
+      );
+      allow delete: if isSignedIn() && resource.data.sellerId == request.auth.uid;
+    }
+
+    // Assignments Collection
+    match /assignments/{assignmentId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (
+        request.resource.data.userId == request.auth.uid ||
+        assignmentId == "assign_1" || 
+        assignmentId == "assign_2"
+      );
+      allow update: if isSignedIn(); // Allows peers bidding, updates status, etc.
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // Collabs Team Listings Collection
+    match /collabs/{collabId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (
+        request.resource.data.creatorId == request.auth.uid ||
+        collabId == "col_1" || 
+        collabId == "col_2"
+      );
+      allow update: if isSignedIn(); // Allows peers to join and increments memberCount
+      allow delete: if isSignedIn() && resource.data.creatorId == request.auth.uid;
+    }
+
+    // Chats Collection
+    match /chats/{chatId} {
+      allow read: if isSignedIn() && request.auth.uid in resource.data.memberUids;
+      allow create: if isSignedIn() && request.auth.uid in request.resource.data.memberUids;
+      allow update: if isSignedIn() && request.auth.uid in resource.data.memberUids;
+
+      // Chats Messages Nested matches
+      match /messages/{messageId} {
+        allow read: if isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.memberUids;
+        allow create: if isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.memberUids && request.resource.data.senderId == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+
+    // Forums Collection
+    match /forums/{forumId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn(); // allows increments on like counters or replies
+      allow delete: if isSignedIn() && resource.data.authorId == request.auth.uid;
+    }
+
+    // Transactions Collection
+    match /transactions/{transactionId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false; // transactions are immutable
+    }
+
+    // Internships Collection
+    match /internships/{internshipId} {
+      allow read: if isSignedIn();
+    }
+
+    // Internship Interactions Collection (Saves, Applications)
+    match /internship_interactions/{interactionId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // Catch-all Default-Deny rule at the end
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
